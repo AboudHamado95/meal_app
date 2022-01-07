@@ -22,7 +22,7 @@ class CategoriesScreen extends StatelessWidget {
             childAspectRatio: 3 / 2,
             crossAxisSpacing: 20.0,
             mainAxisSpacing: 20.0),
-        children: DUMMY_CATEGORIES
+        children: DummyCategories
             .map((catData) => CategoryItem(
                   id: catData.id,
                   title: catData.title,
