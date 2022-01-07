@@ -2,9 +2,11 @@
 
 import 'package:flutter/material.dart';
 
+import 'package:mealapp/constants/constants.dart';
 import 'package:mealapp/models/meal.dart';
 
 class MealItem extends StatelessWidget {
+  late String id;
   late String title;
   late String imageUrl;
   late int duration;
@@ -13,6 +15,7 @@ class MealItem extends StatelessWidget {
 
   MealItem({
     Key? key,
+    required this.id,
     required this.title,
     required this.imageUrl,
     required this.duration,
@@ -45,11 +48,16 @@ class MealItem extends StatelessWidget {
     }
   }
 
-  void selectMeal() {}
+  void selectMeal(context) {
+    Navigator.of(context).pushNamed(mealDetails, arguments: id);
+  }
+
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: selectMeal,
+      onTap: () {
+        selectMeal(context);
+      },
       child: Card(
         shape:
             RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.0)),
