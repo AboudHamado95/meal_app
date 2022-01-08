@@ -4,6 +4,7 @@ import 'package:mealapp/dummy_data.dart';
 
 class MealDetailScreen extends StatelessWidget {
   const MealDetailScreen({Key? key}) : super(key: key);
+  
   Widget buildSectionTitle(BuildContext context, String text) {
     return Container(
         margin: const EdgeInsets.symmetric(vertical: 10.0),

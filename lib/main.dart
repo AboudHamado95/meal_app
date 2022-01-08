@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mealapp/constants/constants.dart';
 import 'package:mealapp/screens/categories_screen.dart';
 import 'package:mealapp/screens/category_meals_screen.dart';
+import 'package:mealapp/screens/layouts/tab_screen.dart';
 import 'package:mealapp/screens/meal_detail_screen.dart';
 
 void main() {
@@ -15,7 +16,10 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.pink)
+        primaryColor: Colors.pink,
+        colorScheme: ColorScheme.fromSwatch(
+
+          primarySwatch: Colors.pink)
             .copyWith(secondary: Colors.amber),
         canvasColor: const Color.fromRGBO(255, 254, 229, 1),
         textTheme: ThemeData.light().textTheme.copyWith(
@@ -31,9 +35,10 @@ class MyApp extends StatelessWidget {
                 fontWeight: FontWeight.bold)),
       ),
       routes: {
-        home: (context) => const CategoriesScreen(),
+        home: (context) => const TabScreen(),
         categoryMeals: (context) => const CategoryMealsScreen(),
         mealDetails: (context) => const MealDetailScreen(),
+        categoryScreen: (context) => const CategoriesScreen(),
       },
     );
   }
