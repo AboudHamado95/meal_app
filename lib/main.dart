@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mealapp/constants/constants.dart';
+import 'package:mealapp/dummy_data.dart';
+import 'package:mealapp/models/meal.dart';
 import 'package:mealapp/screens/categories_screen.dart';
 import 'package:mealapp/screens/category_meals_screen.dart';
 import 'package:mealapp/screens/filter_screen.dart';
@@ -10,8 +12,45 @@ void main() {
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  Map filters = {
+    'gluten': false,
+    'lactose': false,
+    'vegan': false,
+    'vegeterian': false
+  };
+
+  List<Meal> availableMeals = DummyMeals;
+
+  void setFilters(Map _filtersData) {
+    setState(() {
+      filters = _filtersData;
+
+      availableMeals = DummyMeals.where((meal) {
+        if (filters['gluten'] && !meal.isGlutenFree) {
+          return false;
+        }
+        if (filters['lactose'] && !meal.isLactoseFree) {
+          return false;
+        }
+        if (filters['vegan'] && !meal.isVegan) {
+          return false;
+        }
+        if (filters['vegeterian'] && !meal.isVegetarian) {
+          return false;
+        }
+        return true;
+      }).toList();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -35,10 +74,15 @@ class MyApp extends StatelessWidget {
       ),
       routes: {
         home: (context) => const TabScreen(),
-        categoryMeals: (context) => const CategoryMealsScreen(),
+        categoryMeals: (context) => CategoryMealsScreen(
+              availableMeals: availableMeals,
+            ),
         mealDetails: (context) => const MealDetailScreen(),
         categoryScreen: (context) => const CategoriesScreen(),
-        filterScreen: (context) => const FilterScreen(),
+        filterScreen: (context) => FilterScreen(
+              saveFilters: setFilters,
+              currentFilters: filters,
+            ),
       },
     );
   }
